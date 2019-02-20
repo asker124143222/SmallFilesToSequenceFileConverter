@@ -28,6 +28,7 @@ public class SmallFilesToSequenceFileConverter extends Configured implements Too
     @Override
     public int run(String[] args) throws Exception {
         Configuration conf = getConf();
+        conf.set("mapreduce.job.ubertask.enable","true");
         if(conf==null){
             return -1;
         }
@@ -44,6 +45,7 @@ public class SmallFilesToSequenceFileConverter extends Configured implements Too
         job.setJarByClass(SmallFilesToSequenceFileConverter.class);
 
         job.setMapperClass(SequenceFileMapper.class);
+//        job.setNumReduceTasks(0);
 
         job.setInputFormatClass(WholeFileInputFormat.class);
         job.setOutputFormatClass(SequenceFileOutputFormat.class);
